@@ -37,8 +37,9 @@ class AuthController extends Controller
         try {
             $new_user = new RegistrationService($validated);
             $registered_user = $new_user->run();
+            $token = $registered_user->createToken($validated['email'])->accessToken;
            // $user = new UserResource($registered_user);
-            return response()->json(['status' => true, 'data' => $registered_user , 'message' => 'registration successful'], 201);
+            return response()->json(['status' => true, 'data' => $registered_user , 'token' => $token,  'message' => 'registration successful'], 201);
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
             return response()->json(['status' => false,  'message' => 'Error processing request'], 500);

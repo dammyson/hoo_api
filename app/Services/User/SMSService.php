@@ -28,10 +28,9 @@ class SMSService implements BaseServiceInterface
 
     private function processInvite()
     {
-      
         $curl = curl_init();
-        $data = array("api_key" => "TLfjOpq1j8OaiQG44gtmWUEg5y0z4BI50yXEiKQwj8pOY3mZ4eUGjEhaasKXvg", "to" => $this->phone,  "from" => "HOO",
-        "sms" => $this->message,  "type" => "plain",  "channel" => "generic" );
+        $data = array("api_key" => "TLfjOpq1j8OaiQG44gtmWUEg5y0z4BI50yXEiKQwj8pOY3mZ4eUGjEhaasKXvg", "to" => $this->phone,  "from" => "HouseOfOni",
+        "sms" => $this->message,  "type" => "plain",  "sender_id" => "HouseOfOni", "channel" => "generic" );
         
         $post_data = json_encode($data);
         
@@ -45,10 +44,7 @@ class SMSService implements BaseServiceInterface
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
         CURLOPT_POSTFIELDS => $post_data,
-        CURLOPT_HTTPHEADER => array(
-        "Content-Type: application/json"
-        ),
-        ));
+        CURLOPT_HTTPHEADER => array("Content-Type: application/json"),));
         
         $response = json_decode(curl_exec($curl));
         curl_close($curl);
@@ -57,15 +53,6 @@ class SMSService implements BaseServiceInterface
             return $response;
         }else{
            throw new Exception($response->message);
-        }
-       
-       
-
-
-
-     
+        } 
     }
-
-
-
 }
