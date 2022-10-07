@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Notifications\SendUserInvitationMail;
 use App\Services\Mail\InviteUserMailFormat;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class SMSService implements BaseServiceInterface
 {
@@ -45,6 +46,9 @@ class SMSService implements BaseServiceInterface
         CURLOPT_CUSTOMREQUEST => "POST",
         CURLOPT_POSTFIELDS => $post_data,
         CURLOPT_HTTPHEADER => array("Content-Type: application/json"),));
+
+        Log::info($data);
+
         
         $response = json_decode(curl_exec($curl));
         curl_close($curl);

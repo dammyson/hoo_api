@@ -74,9 +74,10 @@ class AuthController extends Controller
     {
         $validated = $request->validated();
         try {
-            // $new_otp = new CreateOtpService($validated);
-            // $new_otp = $new_otp->run();
-            $sms = new SMSService("This is a test",  $validated['phone_number']);
+            $new_otp = new CreateOtpService($validated);
+            $new_otp = $new_otp->run();
+            $msg='Dear customer, use this One Time Password ' .  $new_otp->otp. ' to log in to your (House of Oni) account. This OTP will be valid for the next 2 hrs.';
+            $sms = new SMSService($msg, $new_otp->phone_number);
             $new_sms = $sms ->run();
             return response()->json(['status' => true, 'data' => $new_sms, 'message' => 'sms sent successfully'], 201);
         } catch (\Exception $exception) {
