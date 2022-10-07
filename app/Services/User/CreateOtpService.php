@@ -32,7 +32,7 @@ class CreateOtpService implements BaseServiceInterface
 
     private function generateOtp()
     {
-        $digits = 4;
+        $digits = 6;
         $otp= str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
         return $otp;
     }
