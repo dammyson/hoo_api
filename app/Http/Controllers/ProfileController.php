@@ -41,7 +41,8 @@ class ProfileController extends Controller
         $user = Auth::user();
        
         try {
-            $resource = new UserResource(User::find($user->id));
+           // $resource = new UserResource(User::find($user->id));
+            $resource = User::find($user->id);
             return response()->json(['status' => true, 'data' => $resource, 'message' => 'profile  details'], 200);
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
