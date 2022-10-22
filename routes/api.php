@@ -46,4 +46,5 @@ Route::prefix('tickets')->middleware('auth:api')->group(function () {
    // Route::get('/', [EventController::class,'list'])->name('list');
     Route::post('/', [TicketController::class,'create'])->name('event.create');
     Route::get('/{event_id}', [TicketController::class,'get'])->name('list');
+    Route::post('/buy', [TicketController::class,'buy'])->name('event.buy');
 });

@@ -20,9 +20,6 @@ class CreateService implements BaseServiceInterface
     public function run()
     {
         return \DB::transaction(function () {
-
-
-
             foreach($this->data['ticket_list'] as $value){
                 $new_event = Ticket::create([
                     'event_id' => $this->data['event_id'],
@@ -33,10 +30,6 @@ class CreateService implements BaseServiceInterface
                     'max_llow' => $value['max_llow']
                 ]);
             }
-
-           
-
-
             return $this->data['event_id'];
         });
     }
