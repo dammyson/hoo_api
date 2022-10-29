@@ -2,13 +2,17 @@
 
 namespace App\Models;
 
+use App\Contracts\Likeable;
+use App\Models\Concerns\Likes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UuidTrait;
 
-class Event extends Model
+
+
+class Event extends Model implements Likeable
 {
-    use HasFactory, UuidTrait;
+    use HasFactory, UuidTrait, Likes;
     protected $fillable = [
         'id', 
         'user_id',

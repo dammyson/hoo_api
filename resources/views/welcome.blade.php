@@ -3,6 +3,8 @@
   <button type="button" onclick="payWithPaystack()"> Pay </button> 
 
   <h1>Ojeba</h1>
+
+  <a href="intent:#Intent;scheme=myhangout;end"> Deelink</a>
 </form>
  
 <script>

@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class ResidentCollection extends ResourceCollection
+class EventCollection extends ResourceCollection
 {   
 
     public $collects = 'App\Http\Resources\ResidentResource';
