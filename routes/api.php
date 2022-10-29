@@ -42,6 +42,7 @@ Route::prefix('events')->middleware('auth:api')->group(function () {
     Route::get('/{id}', [EventController::class,'get'])->name('list');
     Route::post('like', [EventController::class,'like'])->name('like');
     Route::get('/search/{search}', [EventController::class,'search'])->name('search');
+    Route::post('/upload/image', [EventController::class,'upload_image'])->name('upload.temp');
 
 });
 

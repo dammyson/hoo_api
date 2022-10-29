@@ -10,7 +10,9 @@ use App\Services\Event\CreateService;
 use App\Http\Requests\Event\ListRequest;
 use App\Http\Resources\EventResource;
 use App\Models\Event;
+use App\Services\Event\FileHandler;
 use App\Services\Event\ListService;
+use Illuminate\Support\Facades\Validator;
 
 class EventController extends Controller
 {
@@ -94,6 +96,26 @@ class EventController extends Controller
         }
         return response()->json(['status' => true, 'message' =>  $msg , 'data' =>  $event], 200);
        
+    }
+
+
+
+    public function upload_image(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|mimes:csv,txt,xlx,xls,pdf,jpeg,png,jpg,mp4,mov,gif|max:9048',
+        ]);
+        //$user = Auth::user();
+        $error = $validator->errors()->first();
+        if ($validator->fails()) {
+            return response()->json(['message' => $error, 'status' => false], 200);
+        }
+      
+        $file_handler = new FileHandler();
+        $image_url = $file_handler->store_image($request);
+        if ($image_url == null)
+            return response()->json(['message' => "Could not upload image", 'status' => false], 500);
+        return response()->json(['message' => "File uploaded", 'url' => 'uploads'.chr(47).$image_url, 'status' => true], 200);
     }
     
 
