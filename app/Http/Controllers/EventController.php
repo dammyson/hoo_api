@@ -53,6 +53,19 @@ class EventController extends Controller
        
     }
 
+    public function search ($search){
+      
+        try {
+            $posts = Event::query()
+            ->where('title', 'LIKE', "%{$search}%")
+            ->orWhere('location', 'LIKE', "%{$search}%")
+            ->get();
+        } catch (\Exception $exception) {
+            return response()->json(['status' => false, 'mesage' => 'Error processing request - '.$exception->getMessage(), 'data' => $exception], 500);
+        }
+        return response()->json(['status' => true, 'message' => 'Event List', 'data' =>   $posts], 200);
+    }
+
     public function like(LikeRequest $request)
     {
 

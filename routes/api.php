@@ -41,7 +41,7 @@ Route::prefix('events')->middleware('auth:api')->group(function () {
     Route::post('/', [EventController::class,'create'])->name('event.create');
     Route::get('/{id}', [EventController::class,'get'])->name('list');
     Route::post('like', [EventController::class,'like'])->name('like');
-    Route::delete('unlike', [EventController::class,'unlike'])->name('unlike');
+    Route::get('/search/{search}', [EventController::class,'search'])->name('search');
 
 });
 
