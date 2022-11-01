@@ -58,7 +58,6 @@ class AuthController extends Controller
     public function postLogin(LoginRequest $request)
     {
         $validated = $request->validated();
-        
         if (auth()->attempt(['email' =>  $validated['email'], 'password' =>  $validated['password']])) {
             $user = Auth::user();
             $token = $user->createToken($validated['email'])->accessToken;

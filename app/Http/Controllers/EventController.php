@@ -34,12 +34,15 @@ class EventController extends Controller
     public function list(Request $request)
     {
         $user = \Auth::user();
+        $object = [];
         try {
             $list = (new ListService($request, $user))->run();
+            $object['trending'] = $list;
+            $object['upcoming'] =$list;
         } catch (\Exception $exception) {
             return response()->json(['status' => false, 'mesage' => 'Error processing request - '.$exception->getMessage(), 'data' => $exception], 500);
         }
-        return response()->json(['status' => true, 'message' => 'Event List', 'data' =>  $list], 200);
+        return response()->json(['status' => true, 'message' => 'Event List', 'data' =>  $object ], 200);
        
     }
 

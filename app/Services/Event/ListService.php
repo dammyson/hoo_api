@@ -22,7 +22,6 @@ class ListService implements BaseServiceInterface
     {
         $events = [];
         $pref = (new GetUserPref($this->user->id))->run();
-        //dd($this->data);
         if ($this->data['category']) {
             $events =  Event::whereIn('category',$this->data['category'])->get();
         } else {
