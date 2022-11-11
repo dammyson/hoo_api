@@ -37,6 +37,7 @@ return [
         'public_uploads' => [
             'driver' => 'local',
             'root'   => public_path() . '/uploads',
+            'visibility' => 'public',
         ],
         'public' => [
             'driver' => 'local',
