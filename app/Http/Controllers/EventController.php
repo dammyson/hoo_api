@@ -98,7 +98,7 @@ class EventController extends Controller
        
     }
 
-
+// uploade
     public function upload_image(Request $request)
     {
         $validator = Validator::make($request->all(), [
