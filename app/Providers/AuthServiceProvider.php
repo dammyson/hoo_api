@@ -32,7 +32,7 @@ class AuthServiceProvider extends ServiceProvider
             Passport::routes();
         }
 
-        //
+        
         Gate::define('like', function (User $user, Likeable $likeable) {
             if (! $likeable->exists) {
                 return Response::deny("Cannot like an object that doesn't exists");

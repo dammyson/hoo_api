@@ -52,3 +52,8 @@ Route::prefix('tickets')->middleware('auth:api')->group(function () {
     Route::get('/{event_id}', [TicketController::class,'get'])->name('list');
     Route::post('/buy', [TicketController::class,'buy'])->name('event.buy');
 });
+
+
+Route::prefix('events')->group(function () {
+    Route::post('/upload/image', [EventController::class,'upload_image'])->name('upload.temp');
+});

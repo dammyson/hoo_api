@@ -76,9 +76,6 @@ class EventController extends Controller
 
         $validated = $request->validated();
         $msg = "No action taken";
-
-      
-
      try {
         $user = \Auth::user();
         $event = Event::with(['tickets'])->findorfail($validated['event_id']);
@@ -102,16 +99,15 @@ class EventController extends Controller
     }
 
 
-
     public function upload_image(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'file' => 'required|mimes:csv,txt,xlx,xls,pdf,jpeg,png,jpg,mp4,mov,gif|max:9048',
+            'file' => 'required|mimes:csv,txt,xlx,xls,pdf,jpeg,png,jpg,mp4,mov,gif|max:9048'
         ]);
-        //$user = Auth::user();
+
         $error = $validator->errors()->first();
         if ($validator->fails()) {
-            return response()->json(['message' => $error, 'status' => false], 200);
+            return response()->json(['message' => $error, 'status' => false], 500);
         }
       
         $file_handler = new FileHandler();
@@ -120,6 +116,9 @@ class EventController extends Controller
             return response()->json(['message' => "Could not upload image", 'status' => false], 500);
         return response()->json(['message' => "File uploaded", 'url' => 'uploads'.chr(47).$image_url, 'status' => true], 200);
     }
-    
-
 }
+
+
+
+
+
