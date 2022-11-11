@@ -27,6 +27,7 @@ class FileHandler
           //  \Storage::disk('public')->put($filename,  \File::get($cover));
 
           \Storage::disk('public')->put($directory.'/'.$filename,  \File::get($cover));
+          
           return $directory.'/'.$filename;
         }catch(\Exception $ex){
             \Log::error('Something is really going wrong.'. $ex);
