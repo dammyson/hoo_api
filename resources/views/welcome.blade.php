@@ -5,6 +5,7 @@
   <h1>Ojeba</h1>
 
   <a href="intent:#Intent;scheme=myhangout;end"> Deelink</a>
+  <img src="{{ asset('images/gallery/__1668138347.png') }}" />
 </form>
  
 <script>
