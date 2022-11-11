@@ -114,7 +114,7 @@ class EventController extends Controller
         $image_url = $file_handler->store_image($request);
         if ($image_url == null)
             return response()->json(['message' => "Could not upload image", 'status' => false], 500);
-        return response()->json(['message' => "File uploaded", 'url' => 'uploads'.chr(47).$image_url, 'status' => true], 200);
+        return response()->json(['message' => "File uploaded", 'url' => asset('uploads'.chr(47).$image_url), 'status' => true], 200);
     }
 }
 
