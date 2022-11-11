@@ -37,7 +37,7 @@ Route::prefix('profile')->middleware('auth:api')->group(function () {
 
 
 Route::prefix('events')->middleware('auth:api')->group(function () {
-    Route::get('/', [EventController::class,'list'])->name('list');
+    Route::post('/list', [EventController::class,'list'])->name('list');
     Route::post('/', [EventController::class,'create'])->name('event.create');
     Route::get('/{id}', [EventController::class,'get'])->name('list');
     Route::post('like', [EventController::class,'like'])->name('like');
