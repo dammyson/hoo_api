@@ -21,13 +21,13 @@ class FileHandler
             $extension = $cover->getClientOriginalExtension();
 
           
-            
+            $directory = '/gallery';
             $filename = $type.'_'.$user_id.'_'.time().'.'.$extension;
 
-            \Storage::disk('public_uploads')->put($filename,  \File::get($cover));
+          //  \Storage::disk('public')->put($filename,  \File::get($cover));
 
-
-            return  $filename;
+          \Storage::disk('public')->put($directory.'/'.$filename,  \File::get($cover));
+          return $directory.'/'.$filename;
         }catch(\Exception $ex){
             \Log::error('Something is really going wrong.'. $ex);
             return null;
