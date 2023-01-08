@@ -10,6 +10,8 @@ use App\Services\Event\CreateService;
 use App\Http\Requests\Event\ListRequest;
 use App\Http\Resources\EventResource;
 use App\Models\Event;
+use App\Models\Like;
+use App\Models\User;
 use App\Services\Event\FileHandler;
 use App\Services\Event\ListService;
 use Illuminate\Support\Facades\Validator;
@@ -76,7 +78,7 @@ class EventController extends Controller
 
         $validated = $request->validated();
         $msg = "No action taken";
-     try {
+         try {
         $user = \Auth::user();
         $event = Event::with(['tickets'])->findorfail($validated['event_id']);
         if($validated['action'] == "like"){
@@ -95,6 +97,20 @@ class EventController extends Controller
             return response()->json(['status' => false, 'mesage' => 'Error processing request - '.$exception->getMessage(), 'data' => $exception], 500);
         }
         return response()->json(['status' => true, 'message' =>  $msg , 'data' =>  $event], 200);
+       
+    }
+
+    public function MyEvent(){
+
+        try {
+        $user = \Auth::user();
+        $likes = Like::where('user_id', $user->id)->get()->pluck('likeable_id');
+            $events = Event::whereIn('id', $likes)->get();
+        } catch (\Exception $exception) {
+            return response()->json(['status' => false, 'mesage' => 'Error processing request - '.$exception->getMessage(), 'data' => $exception], 500);
+        }
+        return response()->json(['status' => true, 'message' =>  "My Events" , 'data' =>  $events], 200);
+   
        
     }
 
