@@ -23,6 +23,7 @@ use App\Services\User\CreateOtpService;
 use App\Services\User\SMSService;
 use App\Support\Enum\ClassMessages;
 use Illuminate\Http\Response;
+use App\Services\User\GetUserPref;
 
 class AuthController extends Controller
 {
@@ -38,7 +39,7 @@ class AuthController extends Controller
             $new_user = new RegistrationService($validated);
             $registered_user = $new_user->run();
             $token = $registered_user->createToken($validated['email'])->accessToken;
-           // $user = new UserResource($registered_user);
+            $registered_user = User::with(['prefs'])->findorfail($registered_user->id);
             return response()->json(['status' => true, 'data' => $registered_user , 'token' => $token,  'message' => 'registration successful'], 201);
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
@@ -63,7 +64,9 @@ class AuthController extends Controller
             $token = $user->createToken($validated['email'])->accessToken;
             $user->last_login = \Carbon\Carbon::now();
             $user->save();
-            return response()->json(['status' => true, 'message' => 'Login successful','token' => $token, 'data' => $user ], 200);
+           // $pref = (new GetUserPref($user->id))->run();
+            $pref = User::with(['prefs'])->findorfail($user->id);
+            return response()->json(['status' => true, 'message' => 'Login successful','token' => $token, 'data' =>  $pref, ], 200);
         } else {
             return response()->json(['status' => false, 'message' => 'UnAuthorised'], 401);
         }

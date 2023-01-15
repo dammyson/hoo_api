@@ -19,7 +19,9 @@ class GetUserPref implements BaseServiceInterface
     {
         $user_pref = [];
      
-        $pref = User::with(['prefs'])->findorfail($this->id);
+       
+
+
       
         $events =  EventKinds::whereIn('id', json_decode($pref->prefs->prefs))->get();
         foreach($events as $value){
