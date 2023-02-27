@@ -10,20 +10,20 @@ class GetUserPref implements BaseServiceInterface
 {
     protected $id;
 
-    public function __construct($id)
+    public function __construct($user)
     {
-        $this->id = $id;
+        $this->user = $user;
     }
 
     public function run()
     {
         $user_pref = [];
-     
+        dd($this->user->prefs);
+        dd($this->user->prefs->pluck('id'));
+
        
-
-
-      
         $events =  EventKinds::whereIn('id', json_decode($pref->prefs->prefs))->get();
+
         foreach($events as $value){
             array_push($user_pref,$value->name);
         }

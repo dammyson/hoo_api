@@ -21,14 +21,15 @@ class ListService implements BaseServiceInterface
     public function run()
     {
         $events = [];
-        $pref = (new GetUserPref($this->user->id))->run();
+       // $pref = (new GetUserPref($this->user))->run();
+       $pref = json_decode($this->user->prefs->prefs);
+
         if ($this->data['category']) {
             $events =  Event::whereIn('category',$this->data['category'])->get();
         } else {
-            $events =  Event::whereIn('category',$pref)->get();
+            $events =  Event::whereIn('category', $pref)->get();
         }
        
-
          return $events;
     }
 }
